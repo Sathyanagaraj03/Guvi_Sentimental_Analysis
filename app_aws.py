@@ -3,6 +3,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import streamlit as st
 from datetime import datetime
 import mysql.connector
+nltk.download('punkt')
 
 # Initialize the VADER sentiment analyzer
 analyzer = SentimentIntensityAnalyzer()
