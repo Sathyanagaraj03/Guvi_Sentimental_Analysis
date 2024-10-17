@@ -2,52 +2,9 @@ import streamlit as st
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 import re
-from datetime import datetime
-from sqlalchemy import create_engine, Table, Column, Integer, DateTime, MetaData
-from sqlalchemy.orm import sessionmaker
 import pandas as pd
 
 
-# Set up MySQL connection
-engine = create_engine("mysql+mysqlconnector://root:""@localhost/sentimental_analysis")
-
-# Create a metadata object to manage the table schema
-metadata = MetaData()
-
-# Define the table schema for timestamps
-timestamps_table = Table(
-    'timestamps', metadata,
-    Column('id', Integer, primary_key=True),
-    Column('timestamp_column', DateTime)
-)
-
-# Create a sessionmaker
-Session = sessionmaker(bind=engine)
-
-# Function to insert the current date and time into the database
-def insert_timestamp_to_db():
-    # Get the current date and time
-    current_datetime = datetime.now()
-
-    # Create a new session
-    session = Session()
-
-    # Insert the timestamp into the table
-    insert_query = timestamps_table.insert().values(timestamp_column=current_datetime)
-
-    # Execute the query
-    session.execute(insert_query)
-    
-    # Commit the transaction
-    session.commit()
-
-    # Close the session
-    session.close()
-
-    return current_datetime
-
-# Save the current date and time when the Streamlit app is opened
-current_datetime = insert_timestamp_to_db()
 
 # Load the saved sentiment analysis model and TF-IDF vectorizer
 with open('decision_tree_sentiment_model.pkl', 'rb') as file:
@@ -101,7 +58,7 @@ with tab1:
 with tab2:
     st.header("Enter Text for Sentiment Analysis")
     # Display the current date and time (saved to the database)
-    st.write("Current Date and Time (Logged):", current_datetime)
+   # st.write("Current Date and Time (Logged):", current_datetime)
 
     # User input for sentiment analysis
     user_input = st.text_area("Enter text for sentiment analysis:")
