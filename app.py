@@ -63,7 +63,7 @@ def clean_text(text):
     return text
 
 # Streamlit App Title
-st.title("Sentiment Analysis with Decision Tree Model")
+st.markdown('<h1 style="text-align: center; color: green;">GUVI SENTIMENT ANALYSIS</h1>', unsafe_allow_html=True)
 
 # Create tabs for project explanation and sentiment prediction
 tab1, tab2 = st.tabs(["Project Explanation", "Sentiment Prediction"])
@@ -90,13 +90,7 @@ with tab1:
         4. **Output**: Users can choose how they want the sentiment to be displayed (simple text, with emojis, etc.). 🎨
     """)
 
-    # Adding a colored box to emphasize a point
-    st.markdown("""
-        <div style='background-color:lightyellow; padding:10px; border-radius:5px'>
-            <strong>Note:</strong> This application is built using Streamlit, allowing for interactive web applications.
-        </div>
-    """, unsafe_allow_html=True)
-
+  
     st.write("### Example of Input and Output")
     st.write("You can enter sentences like:")
     st.markdown("1. **I love this product!** 😍")
@@ -121,11 +115,11 @@ with tab2:
         # Predict sentiment using the Decision Tree model
         prediction = model.predict(input_tfidf)[0]
 
-        if prediction == 0:
-                sentiment = "😠 Negative"
-        elif prediction == 1:
-                sentiment = "😐 Neutral"
+        if prediction == 1:
+                sentiment = "😐Neutral"
+        elif prediction == 2:
+                sentiment = "😊Positive"
         else:
-                sentiment = "😊 Positive"
+                sentiment = "😠 Negative"
         st.write(f"**Predicted Sentiment:** {sentiment}")
 
